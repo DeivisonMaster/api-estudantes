@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.excecoes.RecursoNaoEncontradoException;
 import br.com.api.model.Estudante;
 import br.com.api.model.EstudanteNaoEncontrado;
 import br.com.api.repository.EstudantesRepository;
@@ -23,7 +24,7 @@ import br.com.api.repository.EstudantesRepository;
 @RestController
 @RequestMapping("/api-estudantes")
 public class EstudanteController {
-	private static final String MSG_NÃO_ENCONTRADO = "Estudante não Encontrado!";
+	private static final String MSG_NAO_ENCONTRADO = "Estudante não Encontrado!";
 	
 	@Autowired
 	private EstudantesRepository repository;
@@ -41,9 +42,7 @@ public class EstudanteController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
-		if(!estudanteOptional.isPresent()) {
-			return new ResponseEntity<>(new EstudanteNaoEncontrado(MSG_NÃO_ENCONTRADO), HttpStatus.NOT_FOUND);
-		}
+		isEstudanteExiste(estudanteOptional);
 		return new ResponseEntity<>(estudanteOptional.get(), HttpStatus.OK);
 	}
 	
@@ -56,9 +55,7 @@ public class EstudanteController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
-		if(!estudanteOptional.isPresent()) {
-			return new ResponseEntity<>(new EstudanteNaoEncontrado(MSG_NÃO_ENCONTRADO), HttpStatus.NOT_FOUND);
-		}
+		isEstudanteExiste(estudanteOptional);
 		repository.delete(estudanteOptional.get());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -66,11 +63,15 @@ public class EstudanteController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> atualiza(@PathVariable("id") long id, @RequestBody Estudante estudante){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
-		if(!estudanteOptional.isPresent()) {
-			return new ResponseEntity<>(new EstudanteNaoEncontrado(MSG_NÃO_ENCONTRADO), HttpStatus.NOT_FOUND);
-		}
+		isEstudanteExiste(estudanteOptional);
 		estudante.setId(id);
 		repository.save(estudante);
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	private void isEstudanteExiste(Optional<Estudante> estudanteOptional) {
+		if(!estudanteOptional.isPresent()) {
+			throw new RecursoNaoEncontradoException(MSG_NAO_ENCONTRADO);
+		}
 	}
 }
