@@ -8,4 +8,6 @@ import br.com.api.model.Estudante;
 @Repository
 public interface EstudantesRepository extends JpaRepository<Estudante, Long>{
 
+	Estudante findByNomeIgnoreCaseContaining(String nome);
+
 }

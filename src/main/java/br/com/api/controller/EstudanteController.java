@@ -33,6 +33,11 @@ public class EstudanteController {
 		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}
 	
+	@GetMapping("/buscaPorNome/{nome}")
+	public ResponseEntity<Estudante> buscaPorNome(@PathVariable String nome){
+		return new ResponseEntity<Estudante>(repository.findByNomeIgnoreCaseContaining(nome), HttpStatus.OK);
+	}
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
