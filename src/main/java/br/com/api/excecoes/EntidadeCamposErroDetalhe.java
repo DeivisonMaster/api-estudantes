@@ -1,16 +1,18 @@
 package br.com.api.excecoes;
 
-public class RecursoNaoEncontradoDetalhes extends ErroDetalhe{
+
+public class EntidadeCamposErroDetalhe extends ErroDetalhe{
+	private String campo;
+	private String msgCampo;
 	
-	private RecursoNaoEncontradoDetalhes() {
-	}
-	
-	public RecursoNaoEncontradoDetalhes(Builder builder) {
+	public EntidadeCamposErroDetalhe(Builder builder) {
 		setTitulo(builder.titulo);
 		setStatus(builder.status);
 		setDetalhe(builder.detalhe);
 		setTimestamp(builder.timestamp);
 		setMsgDesenvolvedor(builder.msgDesenvolvedor);
+		this.campo = builder.campo;
+		this.msgCampo = builder.msgCampo;
 	}
 
 	public static final class Builder{
@@ -19,6 +21,8 @@ public class RecursoNaoEncontradoDetalhes extends ErroDetalhe{
 		private String detalhe;
 		private long timestamp;
 		private String msgDesenvolvedor;
+		private String campo;
+		private String msgCampo;
 		
 		private Builder() {
 		}
@@ -51,10 +55,34 @@ public class RecursoNaoEncontradoDetalhes extends ErroDetalhe{
 			this.msgDesenvolvedor = msgDesenvolvedor;
 			return this;
 		}
+		
+		public Builder campo(String campo) {
+			this.campo = campo;
+			return this;
+		}
+		
+		public Builder msgCampo(String msgCampo) {
+			this.msgCampo = msgCampo;
+			return this;
+		}
 
-		public RecursoNaoEncontradoDetalhes build() {
-			return new RecursoNaoEncontradoDetalhes(this);
+		public EntidadeCamposErroDetalhe build() {
+			return new EntidadeCamposErroDetalhe(this);
 		}
 	}
+	
+	public String getCampo() {
+		return campo;
+	}
+	public void setCampo(String campo) {
+		this.campo = campo;
+	}
+	public String getMsgCampo() {
+		return msgCampo;
+	}
+	public void setMsgCampo(String msgCampo) {
+		this.msgCampo = msgCampo;
+	}
+	
 	
 }

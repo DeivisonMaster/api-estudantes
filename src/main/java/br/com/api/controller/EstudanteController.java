@@ -3,6 +3,8 @@ package br.com.api.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +50,7 @@ public class EstudanteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Estudante salvar(@RequestBody Estudante estudante) {
+	public Estudante salvar(@Valid @RequestBody Estudante estudante) {
 		return repository.save(estudante);
 	}
 	
