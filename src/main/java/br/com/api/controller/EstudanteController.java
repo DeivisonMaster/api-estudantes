@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +33,8 @@ public class EstudanteController {
 	private EstudantesRepository repository;
 	
 	@GetMapping
-	public ResponseEntity<?> listar(){
-		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+	public ResponseEntity<?> listar(Pageable paginacao){
+		return new ResponseEntity<>(repository.findAll(paginacao), HttpStatus.OK);
 	}
 	
 	@GetMapping("/buscaPorNome/{nome}")
