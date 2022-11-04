@@ -60,7 +60,7 @@ public class EstudanteController {
 	}
 	
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('REGRA_ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
 		isEstudanteExiste(estudanteOptional);
