@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +46,8 @@ public class EstudanteController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id){
+	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id, @AuthenticationPrincipal UserDetails userDetails){
+		System.out.println(userDetails);
 		Optional<Estudante> estudanteOptional = repository.findById(id);
 		isEstudanteExiste(estudanteOptional);
 		return new ResponseEntity<>(estudanteOptional.get(), HttpStatus.OK);
@@ -56,6 +60,7 @@ public class EstudanteController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('REGRA_ADMIN')")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Optional<Estudante> estudanteOptional = repository.findById(id);
 		isEstudanteExiste(estudanteOptional);
