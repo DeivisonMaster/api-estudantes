@@ -35,5 +35,10 @@ public class Estudante extends EntidadePadrao{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@Override
+	public String toString() {
+		return "Nome: " + this.nome + "\n";
+	}
 
 }
