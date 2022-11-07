@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.api.model.Estudante;
+import br.com.api.model.RestTemplateResponsePageable;
 
 public class RestTemplateGET {
 	public static void main(String[] args) {
@@ -19,9 +20,16 @@ public class RestTemplateGET {
 				.build();
 		
 //		obtemObjetoSimples(restTemplate);
-		obtemObjetoComposto(restTemplate);
+//		obtemObjetoComposto(restTemplate);
 //		obtemArrayObjetos(restTemplate);
 //		obtemListaObjetos(restTemplate);
+		obtemListaObjetosPaginado(restTemplate);
+	}
+
+	private static void obtemListaObjetosPaginado(RestTemplate restTemplate) {
+		ResponseEntity<RestTemplateResponsePageable<Estudante>> exchange = 
+				restTemplate.exchange("/?sort=nome,desc", HttpMethod.GET, null, new ParameterizedTypeReference<RestTemplateResponsePageable<Estudante>>() {});
+		System.out.println(exchange);
 	}
 
 	private static void obtemListaObjetos(RestTemplate restTemplate) {

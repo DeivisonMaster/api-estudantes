@@ -33,7 +33,7 @@ public class EstudanteController {
 	
 	@GetMapping(path = "protegido/api-estudantes")
 	public ResponseEntity<?> listar(Pageable paginacao){
-		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(repository.findAll(paginacao), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "protegido/api-estudantes/buscaPorNome/{nome}")
