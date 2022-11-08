@@ -63,11 +63,10 @@ public class EstudanteController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
-	@PutMapping(path = "admin/api-estudantes/{id}")
-	public ResponseEntity<?> atualiza(@PathVariable("id") long id, @Valid @RequestBody Estudante estudante){
-		Estudante estudantePesquisa = repository.findOne(id);
+	@PutMapping(path = "admin/api-estudantes")
+	public ResponseEntity<?> atualiza(@Valid @RequestBody Estudante estudante){
+		Estudante estudantePesquisa = repository.findOne(estudante.getId());
 		isEstudanteExiste(estudantePesquisa);
-		estudante.setId(id);
 		repository.save(estudante);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
