@@ -24,8 +24,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import static br.com.api.security.JWTConstants.*;
 
-public class JWTAuth extends UsernamePasswordAuthenticationFilter{
+public class JWTAuthFilter extends UsernamePasswordAuthenticationFilter{
 	private AuthenticationManager authManager;
+	
+	public JWTAuthFilter(AuthenticationManager authManager) {
+		this.authManager = authManager;
+	}
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -41,7 +45,7 @@ public class JWTAuth extends UsernamePasswordAuthenticationFilter{
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
-		String nomeUsuario = ((User) authResult).getUsername();
+		String nomeUsuario = ((User) authResult.getPrincipal()).getUsername();
 		String token = Jwts
 				.builder()
 				.setSubject(nomeUsuario)

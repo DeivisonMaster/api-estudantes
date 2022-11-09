@@ -17,7 +17,6 @@ public class Usuario extends EntidadePadrao{
 	private String usuario;
 	
 	@NotEmpty
-	@JsonIgnore
 	private String senha;
 	
 	@NotEmpty
