@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.excecoes.RecursoNaoEncontradoException;
 import br.com.api.model.Estudante;
 import br.com.api.repository.EstudantesRepository;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("v1")
@@ -32,6 +33,7 @@ public class EstudanteController {
 	private EstudantesRepository repository;
 	
 	@GetMapping(path = "protegido/api-estudantes")
+	@ApiOperation(value = "Retorna a listagem de todos os estudantes cadastrados", response = Estudante[].class)
 	public ResponseEntity<?> listar(Pageable paginacao){
 		return new ResponseEntity<>(repository.findAll(paginacao), HttpStatus.OK);
 	}

@@ -38,6 +38,6 @@ JWTAuthorizationFilter
 3. cria usuario com suas permissões no sistema
 
 
-
+http://localhost:8080/v2/api-docs
 
 
