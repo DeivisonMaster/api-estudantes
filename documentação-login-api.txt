@@ -1,0 +1,47 @@
+GERAÇÃO DE TOKEN PARA USO DA API:
+
+1. Efetuar requisição para:
+POST http://<dominio-local>:8080/login 
+Body:
+{
+    "usuario": "teste",
+    "senha": "123"
+}
+
+2. Recuperar da resposta o Header Authorization com o valor to token gerado, ex:
+"Authorization Bearer <hash-token>"
+
+3. Swagger Docs:
+http://<dominio-local>:8080/v2/api-docs
+
+
+
+
+
+JWTAuthenticationFilter.java
+
+1. lê dados do usuario da requisição
+	attemptAuthentication();
+2. busca usuario por nome
+	UsuarioService()
+		loadUserByUsername()
+			carrega permissões do usuario carregado
+3. se autenticação com sucesso:
+	successfulAuthentication()
+		gera token baseado no nome do usuário logado, expiração do token, e tipo de algoritmo no formato:
+			"Authorization Bearer <hash-token>"
+
+
+
+JWTAuthorizationFilter.java
+
+1. lê e valida o token da requisição
+	doFilterInternal()
+2. busca usuario por nome
+	doFilterInternal()
+3. cria usuario com suas permissões no sistema
+
+
+
+
+
