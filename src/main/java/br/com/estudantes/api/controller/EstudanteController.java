@@ -3,10 +3,12 @@ package br.com.estudantes.api.controller;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +29,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("v1")
 public class EstudanteController {
+	private static final Logger LOGGER = Logger.getLogger(EstudanteController.class);
 	private static final String MSG_NAO_ENCONTRADO = "Estudante não Encontrado!";
 	
 	@Autowired
@@ -45,7 +48,8 @@ public class EstudanteController {
 	
 	@GetMapping(path = "protegido/api-estudantes/{id}")
 	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id, @AuthenticationPrincipal UserDetails userDetails){
-		System.out.println(userDetails);
+		LOGGER.info(userDetails);
+		
 		Estudante estudante = repository.findOne(id);
 		isEstudanteExiste(estudante);
 		return new ResponseEntity<>(estudante, HttpStatus.OK);
@@ -58,6 +62,7 @@ public class EstudanteController {
 	}
 	
 	@DeleteMapping(path = "admin/api-estudantes/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Estudante estudante = repository.findOne(id);
 		isEstudanteExiste(estudante);
