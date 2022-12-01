@@ -62,7 +62,6 @@ public class EstudanteController {
 	}
 	
 	@DeleteMapping(path = "admin/api-estudantes/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Estudante estudante = repository.findOne(id);
 		isEstudanteExiste(estudante);
