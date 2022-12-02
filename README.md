@@ -16,6 +16,11 @@ Desenvolver API que manipula estudantes com recursos de autenticação e autoriz
 
 <h2>Padrão de Arquitetura</h2>
 <p>MVC</p>
+
+<h2>Testes</h2>
+<p>Validação camada Endpoint (Controller)</p>
+<p>Validação camada Repositorio</p>
+
   
 <h2>Tecnologias Aplicadas</h2>
 <p>Java 8</p>
@@ -32,4 +37,7 @@ Desenvolver API que manipula estudantes com recursos de autenticação e autoriz
 <p>Apache Tomcat</p>
 <p>MySQL</p>
 <p>IDE Spring Tool Suite</p>
+<p>DataJpaTest</p>
+<p>MockMvc</p>
+<p>AssertJ</p>
 

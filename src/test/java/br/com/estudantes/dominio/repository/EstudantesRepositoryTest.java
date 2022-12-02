@@ -1,8 +1,6 @@
 package br.com.estudantes.dominio.repository;
 
-import static org.junit.Assert.*;
 
-import java.util.Optional;
 
 import javax.validation.ConstraintViolationException;
 
