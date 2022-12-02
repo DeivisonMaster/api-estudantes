@@ -42,7 +42,6 @@ public class EstudanteController {
 	
 	@GetMapping(path = "protegido/api-estudantes/listarNaoPaginado")
 	public ResponseEntity<?> listar(){
-		System.out.println(repository.findAll());
 		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}
 	

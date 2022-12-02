@@ -1,6 +1,7 @@
 package br.com.estudantes.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.estudantes.dominio.service.CustomUserDetailsService;
+import static br.com.estudantes.security.JWTCredenciais.*;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -17,19 +19,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 	
+	/**
+	 * Configuração Basic Authentication
+	 * */
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.authorizeRequests()
+//			.antMatchers("/*/protegido/**").hasRole("USER")
+//			.antMatchers("/*/admin/**").hasRole("ADMIN")
+//			.anyRequest()
+//			.authenticated()
+//			.and()
+//			.httpBasic()
+//			.and()
+//			.csrf()
+//			.disable();
+//	}
+	
+	/**
+	 * Configuração JWT
+	 * */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
+		http.cors().and().csrf().disable()
+			.authorizeRequests().antMatchers(HttpMethod.GET, SIGN_UP_URL).permitAll()
 			.antMatchers("/*/protegido/**").hasRole("USER")
 			.antMatchers("/*/admin/**").hasRole("ADMIN")
-			.anyRequest()
-			.authenticated()
 			.and()
-			.httpBasic()
-			.and()
-			.csrf()
-			.disable();
+			.addFilter(new JWTAutenticacaoFiltro(authenticationManager()))
+			.addFilter(new JWTAutorizacaoFiltro(authenticationManager(), customUserDetailsService));
 	}
 	
 	@Override
@@ -37,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 	
-	// Config em memória
+	// Configuração Autenticação em memória
 //	@Autowired
 //	public void configureGlobal(AuthenticationManagerBuilder authBuilder) throws Exception {
 //		authBuilder.inMemoryAuthentication()
