@@ -26,7 +26,7 @@ public class SwaggerConfig {
 	public Docket apiDoc() {
 		return new Docket(DocumentationType.SWAGGER_2)
 			.select()
-			.apis(RequestHandlerSelectors.basePackage("br.com.api.controller"))
+			.apis(RequestHandlerSelectors.basePackage("br.com.estudantes"))
 			.paths(regex("/v1.*"))
 			.build()
 			.globalOperationParameters(Collections.singletonList(new ParameterBuilder()
