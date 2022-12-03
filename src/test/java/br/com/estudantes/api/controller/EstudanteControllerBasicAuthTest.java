@@ -25,7 +25,7 @@ import br.com.estudantes.dominio.repository.EstudantesRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class EstudanteControllerTest {
+public class EstudanteControllerBasicAuthTest {
 	
 	@Autowired
 	private TestRestTemplate restTemplateTest;
@@ -44,7 +44,6 @@ public class EstudanteControllerTest {
 			return new RestTemplateBuilder().basicAuthorization("admin", "123");
 		}
 	}
-	
 
 	@Test
 	public void deveRetornarStatusCode401NaConsultaPorEstudantesComAutenticacaoPorUsuarioESenhaIncorretos() {
@@ -67,7 +66,7 @@ public class EstudanteControllerTest {
 		Iterable<Estudante> listaEstudantes = Arrays.asList(new Estudante(1L, "Katia", "katia@email.com"), new Estudante(2L, "Maria", "maria@email.com"));
 		BDDMockito.when(estudanteRepositorio.findAll()).thenReturn(listaEstudantes);
 		
-		ResponseEntity<Estudante[]> response = restTemplateTest.getForEntity("/v1/protegido/api-estudantes/listarNaoPaginado", Estudante[].class);
+		ResponseEntity<String> response = restTemplateTest.getForEntity("/v1/protegido/api-estudantes/listarNaoPaginado", String.class);
 		
 		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(200);
 	}

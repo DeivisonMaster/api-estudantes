@@ -53,6 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.addFilter(new JWTAutorizacaoFiltro(authenticationManager(), customUserDetailsService));
 	}
 	
+	
+	/**
+	 * Configuração Autenticação via Banco MySQL
+	 * */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());

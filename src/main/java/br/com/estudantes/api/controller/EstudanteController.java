@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,8 +55,8 @@ public class EstudanteController {
 	
 	@GetMapping(path = "protegido/api-estudantes/{id}")
 	@ApiOperation(value = "Consulta Estudante por Id")
-	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id, @AuthenticationPrincipal UserDetails userDetails){
-		LOGGER.info(userDetails);
+	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id, Authentication auth){
+		LOGGER.info(auth);
 		
 		Estudante estudante = repository.findOne(id);
 		isEstudanteExiste(estudante);
