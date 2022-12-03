@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import br.com.estudantes.dominio.model.Usuario;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import static br.com.estudantes.security.JWTCredenciais.*;
 
 /**
  * @description JWT Autenticação
@@ -50,10 +51,13 @@ public class JWTAutenticacaoFiltro extends UsernamePasswordAuthenticationFilter 
 		String nomeUsuario = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername();
 		String token = Jwts.builder()
 				.setSubject(nomeUsuario)
-				.setExpiration(new Date(System.currentTimeMillis() + JWTCredenciais.TEMPO_EXPIRACAO))
-				.signWith(SignatureAlgorithm.HS512, JWTCredenciais.CHAVE).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + TEMPO_EXPIRACAO))
+				.signWith(SignatureAlgorithm.HS512, CHAVE)
+				.compact();
+		String bearerToken = TOKEN_PREFIXO + token;
+		response.getWriter().write(bearerToken);
 		
-		response.addHeader(JWTCredenciais.HEADER_STRING, JWTCredenciais.TOKEN_PREFIXO + token);
+		response.addHeader(HEADER_STRING, TOKEN_PREFIXO + token);
 	}
 
 }
