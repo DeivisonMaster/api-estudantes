@@ -35,22 +35,25 @@ public class EstudanteController {
 	private EstudantesRepository repository;
 	
 	@GetMapping(path = "protegido/api-estudantes")
-	@ApiOperation(value = "Retorna a listagem de todos os estudantes cadastrados", response = Estudante[].class)
+	@ApiOperation(value = "Consulta Lista de Estudantes com Paginação")
 	public ResponseEntity<?> listar(Pageable paginacao){
 		return new ResponseEntity<>(repository.findAll(paginacao), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "protegido/api-estudantes/listarNaoPaginado")
+	@ApiOperation(value = "Consulta Lista de Estudantes sem Paginação")
 	public ResponseEntity<?> listar(){
 		return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "Consulta Estudante pelo Nome")
 	@GetMapping(path = "protegido/api-estudantes/buscaPorNome/{nome}")
 	public ResponseEntity<Estudante> buscaPorNome(@PathVariable String nome){
 		return new ResponseEntity<Estudante>(repository.findByNomeIgnoreCaseContaining(nome), HttpStatus.OK);
 	}
 	
 	@GetMapping(path = "protegido/api-estudantes/{id}")
+	@ApiOperation(value = "Consulta Estudante por Id")
 	public ResponseEntity<?> obtemPorId(@PathVariable("id") long id, @AuthenticationPrincipal UserDetails userDetails){
 		LOGGER.info(userDetails);
 		
@@ -61,11 +64,13 @@ public class EstudanteController {
 	
 	@PostMapping(path = "admin/api-estudantes")
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Cadastra novo Estudante")
 	public Estudante salvar(@Valid @RequestBody Estudante estudante) {
 		return repository.save(estudante);
 	}
 	
 	@DeleteMapping(path = "admin/api-estudantes/{id}")
+	@ApiOperation(value = "Exclui um Estudante")
 	public ResponseEntity<?> excluir(@PathVariable("id") long id){
 		Estudante estudante = repository.findOne(id);
 		isEstudanteExiste(estudante);
@@ -74,6 +79,7 @@ public class EstudanteController {
 	}
 	
 	@PutMapping(path = "admin/api-estudantes")
+	@ApiOperation(value = "Atualiza um Estudante")
 	public ResponseEntity<?> atualiza(@Valid @RequestBody Estudante estudante){
 		Estudante estudantePesquisa = repository.findOne(estudante.getId());
 		isEstudanteExiste(estudantePesquisa);
