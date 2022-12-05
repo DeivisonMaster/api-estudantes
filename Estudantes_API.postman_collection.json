@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "f24c244b-0eac-42d0-87cf-16a5e9da9a14",
+		"name": "Estudantes API",
+		"description": "Endpoints configurados para acesso aos recursos da API.\n\nAutenticação do tipo Bearer Token.\n\nToken já incluso no contexto Authorization das APIs sendo necessário apenas o deploy da aplicação para os testes.\n\nO token gerado e disponibilizado é para o usuário 'admin' conforme objeto JSON no endpoint POST/Login ou seja com permissões de usuário e administrador inclusas. Para os endpoints POST, PUT e DEL apenas o usuário admin poderá efetuar requisições com sucesso. Caso seja necessário validar o usuário teste que possui autorização para todos os endpoints exceto POST, PUT e DEL, gerar novo token no endpoint POST/Login com o objeto abaixo, copiar o token do response header e setar nos endpoints para testes.\n\nStartFragment\n\n{    \"usuario\": \"teste\",    \"senha\": \"123\"}\n\nEndFragment  \n  \n\nPara este caso, o token tem tempo de expiração de 180 dias.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7129537"
+	},
+	"item": [
+		{
+			"name": "Listar",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/protegido/api-estudantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"protegido",
+						"api-estudantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/protegido/api-estudantes/30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"protegido",
+						"api-estudantes",
+						"30"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Incluir",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY3NTg2MjkwM30.0-uUmQ4GCSRVnR2H76ef5lVejsGYfsL2XquLzwvl8DTSAudXJDerKpN2tbqCBnyuObQgrzvU8fRSn5KubiH8vw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Teste 2\",\r\n    \"email\": \"teste@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/admin/api-estudantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"admin",
+						"api-estudantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/admin/api-estudantes/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"admin",
+						"api-estudantes",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Caio Oliveira 6\",\r\n    \"email\": \"caio@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/admin/api-estudantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"admin",
+						"api-estudantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Por Nome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/protegido/api-estudantes/buscaPorNome/Caio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"protegido",
+						"api-estudantes",
+						"buscaPorNome",
+						"Caio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Paginado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/protegido/api-estudantes?last=true&size=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"protegido",
+						"api-estudantes"
+					],
+					"query": [
+						{
+							"key": "last",
+							"value": "true"
+						},
+						{
+							"key": "size",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Ordenando",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/protegido/api-estudantes?sort=nome,desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"protegido",
+						"api-estudantes"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "nome,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - Obter Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"usuario\": \"admin\",\r\n    \"senha\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NTU2MjQ3M30.wEMwJqv7rpBqWex4PfdqnNOKzPQ9EcLyg9IJh89Lkau6HlI-UqtcUzUFVdwsoHgkPOjQlpvKqh0ymIfhm-oXKw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
