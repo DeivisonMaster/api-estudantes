@@ -50,7 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/*/admin/**").hasRole("ADMIN")
 			.and()
 			.addFilter(new JWTAutenticacaoFiltro(authenticationManager()))
-			.addFilter(new JWTAutorizacaoFiltro(authenticationManager(), customUserDetailsService));
+			.addFilter(new JWTAutorizacaoFiltro(authenticationManager(), customUserDetailsService))
+			.headers().frameOptions().disable();
 	}
 	
 	
