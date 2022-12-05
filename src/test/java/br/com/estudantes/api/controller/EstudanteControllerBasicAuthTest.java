@@ -4,6 +4,7 @@ package br.com.estudantes.api.controller;
 import java.util.Arrays;
 
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +19,13 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import br.com.estudantes.dominio.model.Estudante;
 import br.com.estudantes.dominio.repository.EstudantesRepository;
@@ -39,8 +45,15 @@ public class EstudanteControllerBasicAuthTest {
 	@MockBean
 	private EstudantesRepository estudanteRepositorio;
 	
-	@Autowired
 	private MockMvc mockMvc;
+	
+	@Autowired
+	private WebApplicationContext webApplicationContext;
+	
+	@Before
+	public void setup() {
+		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
 	
 	@TestConfiguration
 	static class Config{
@@ -94,6 +107,25 @@ public class EstudanteControllerBasicAuthTest {
 		ResponseEntity<Estudante> response = restTemplateTest.getForEntity("/v1/protegido/api-estudantes/{id}", Estudante.class, -1L);
 		
 		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(404);
+	}
+	
+	
+	@Test
+	@WithMockUser(username = "xx", password = "xx", roles = {"USER", "ADMIN"})
+	public void deveRetornarStatusCode404NaExclusaoDeEstudanteInexistenteComRegraUsuarioAdminEPorUsuarioESenhaCorretos() throws Exception {
+		mockMvc
+			.perform(MockMvcRequestBuilders.delete("/v1/admin/api-estudantes/{id}", -1L))
+			.andExpect(MockMvcResultMatchers.status()
+					.isNotFound());
+		
+	}
+	
+	@Test
+	@WithMockUser(username = "xx", password = "xx", roles = {"USER"})
+	public void deveRetornarStatusCode403NaExclusaoDeEstudanteInexistenteComRegraDeUsuarioPorUsuarioESenhaCorretos() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.delete("/v1/admin/api-estudantes/{id}", -1L))
+			.andExpect(MockMvcResultMatchers.status()
+					.isForbidden());
 	}
 
 }

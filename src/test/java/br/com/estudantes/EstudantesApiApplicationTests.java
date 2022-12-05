@@ -1,12 +1,14 @@
 package br.com.estudantes;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
+@Ignore
+@SpringBootTest
 public class EstudantesApiApplicationTests {
 
-//	@Test
+	@Test
 	public void contextLoads() {
 	}
 
