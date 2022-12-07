@@ -54,14 +54,14 @@ public class EstudanteControllerTokenTest {
 	
 	@Before
 	public void configParaEndpointsParaUsuarioTeste() {
-		String usuarioTeste = "{\"usuario\": \"teste\", \"senha\": \"123\"}";
+		String usuarioTeste = "{\"nomeUsuario\": \"teste\", \"senha\": \"123\"}";
 		HttpHeaders headers = restTemplateTest.postForEntity("/login", usuarioTeste, String.class).getHeaders();
 		this.headerUsuarioComum = new HttpEntity<>(headers);
 	}
 	
 	@Before
 	public void configParaEndpointsParaUsuarioAdmin() {
-		String usuarioAdmin = "{\"usuario\": \"admin\", \"senha\": \"123\"}";
+		String usuarioAdmin = "{\"nomeUsuario\": \"admin\", \"senha\": \"123\"}";
 		HttpHeaders httpHeaders = restTemplateTest.postForEntity("/login", usuarioAdmin, String.class).getHeaders();
 		this.headerUrlAdmin = new HttpEntity<>(httpHeaders);
 	}
