@@ -11,6 +11,7 @@ public class JWTCredenciais {
 	static final String TOKEN_PREFIXO = "Bearer ";
 	static final String HEADER_STRING = "Authorization";
 	static final String SIGN_UP_URL = "/users/sign-up";
+	static final String CRIA_USUARIOS = "/usuario/cria-usuarios/**";
 	static final long TEMPO_EXPIRACAO = 15552000000L;
 	
 	public static void main(String[] args) {

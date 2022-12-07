@@ -8,6 +8,6 @@ import br.com.estudantes.dominio.model.Usuario;
 @Repository
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long>{
 	
-	Usuario findByUsuario(String usuario);
+	Usuario findByNomeUsuario(String usuario);
 
 }

@@ -3,18 +3,19 @@ package br.com.estudantes.dominio.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario extends EntidadePadrao{
-	
+	private static final long serialVersionUID = -9167018457513892130L;
+
 	@NotEmpty
-	@Column(unique = true)
-	private String usuario;
+	@Column(unique = true, name = "usuario")
+	private String nomeUsuario;
 	
 	@NotEmpty
 	private String senha;
@@ -22,15 +23,25 @@ public class Usuario extends EntidadePadrao{
 	@NotEmpty
 	private String nome;
 	
-	@NotEmpty
+	@NotNull
 	private boolean admin;
-
-	public String getUsuario() {
-		return usuario;
+	
+	public Usuario() {
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public Usuario(String nomeUsuario, String senha, String nome, boolean admin) {
+		this.nomeUsuario = nomeUsuario;
+		this.senha = senha;
+		this.nome = nome;
+		this.admin = admin;
+	}
+
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenha() {
