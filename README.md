@@ -42,7 +42,7 @@ Body:
 ACESSO SWAGGER DOC:
 1. http://<dominio-local>:8080/swagger-ui.html
 <br/>
-![Screenshot](swagger-info.JPG)
+![Screenshot](swagger-img.PNG)
 
 <br/>
 
