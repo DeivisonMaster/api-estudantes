@@ -43,7 +43,7 @@ ACESSO SWAGGER DOC:
 1. http://<dominio-local>:8080/swagger-ui.html
 <br/>
 Endpoints:
-![Screenshot](swagger-img.PNG)
+![Screenshot](docs/swagger-img.PNG)
 
 <br/><br/>
 
