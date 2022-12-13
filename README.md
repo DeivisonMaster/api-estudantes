@@ -20,6 +20,8 @@ Desenvolver API que manipula estudantes com recursos de autenticação e autoriz
 <p>Validação camada Endpoint (Controller)</p>
 <p>Validação camada Repositorio</p>
 
+<br/>
+
 <h3>Configuração Gerais</h3>
 *** Token com base no usuário admin com permissões de POST, DEL e PUT
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTY4NTgwNDg1NX0.v_6XpXJtSfFpz-PDvS5q90HUcYjKfGIJQM8fpkKLhS3qpAhADiwkFPG3P4m_k3Nq4yELIq55CNegVmTUXX35hA
@@ -35,10 +37,11 @@ Body:
 2. Recuperar da resposta o Header Authorization com o valor to token gerado, ex:
 "Authorization Bearer <hash-token>"
 
-
+<br/><br/>
 
 ACESSO SWAGGER DOC:
-1 http://<dominio-local>:8080/swagger-ui.html
+1. http://<dominio-local>:8080/swagger-ui.html
+<br/>
 
 Obs: Endpoints protegidos com bearer token
 2 Utilizar token base acima. Caso expirado, gerar novo token POST /login 
