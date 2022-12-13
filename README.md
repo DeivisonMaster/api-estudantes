@@ -42,12 +42,14 @@ Body:
 ACESSO SWAGGER DOC:
 1. http://<dominio-local>:8080/swagger-ui.html
 <br/>
+Endpoints:
 ![Screenshot](swagger-img.PNG)
 
-<br/>
+<br/><br/>
 
 Obs: Endpoints protegidos com bearer token
-2 Utilizar token base acima. Caso expirado, gerar novo token POST /login 
+<br/>
+Utilizar token base acima. Caso expirado, gerar novo token POST /login 
 
   
 <h2>Tecnologias Aplicadas</h2>
